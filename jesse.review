@@ -1,3 +1,3 @@
 Purpose: This file's purpose is to contain Jesse's comments on different pieces of code.
 Bucky's code:
-QTSpim complains that the word move cannot be used as a label because it is an opcode. I do not know how tolerant MARS is, but I recommend changing the label "move" to "move1" and "moves" to "move2" or something like that.
+QTSpim complains that the word move cannot be used as a label because it is an opcode. I do not know how tolerant MARS is, but I recommend changing the label "move" to something other than "move". It is best to keep these names logical, but the ruberik has a limit on the size of a label.
