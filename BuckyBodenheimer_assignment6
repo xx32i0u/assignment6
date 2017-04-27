@@ -1,0 +1,100 @@
+#####################################################################
+# Assignment #: Assignment 6 #5.7	Programmer: Bucky Bodenheimer
+# Due Date: 4/28/17    Course: CSC225-040
+# Last Modified: 4/25/17
+#####################################################################
+# Functional Description:
+#
+#
+#####################################################################
+#	 Pseudocode:
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+# 
+######################################################################
+# Register Usage:
+# 
+# 
+# 
+######################################################################
+	.data	#data declaration section
+prompt:	.asciiz "\nPlease enter an integer: "
+min:	.asciiz "\nMinimum: "
+max:	.asciiz "\nMaximum: "
+	.text	
+	
+main:
+	li	$v0, 4		#print string
+	la	$a0, prompt	#load prompt
+	syscall			#print prompt to I/O
+	li	$v0, 5		#read integer
+	syscall			#put value into $v0
+	move	$t0, $v0	#move 1st integer to $t0
+	syscall
+second:
+	li	$v0, 4		#print string
+	la	$a0, prompt	#ask for integer again
+	syscall
+	li	$v0, 5		#read integer into v0
+	syscall
+	move	$t1, $v0	#move 2nd input to $t1
+	syscall
+less:
+	blt	$t1, $t0, swap	#if t1 < t0 branch to swap
+	bgt	$t1, $t0, last
+		
+swap:	
+	xor	$t0, $t0, $t1	#swap values if t1 < t0
+	xor	$t1, $t0, $t1
+	xor	$t0, $t0, $t1
+	beqz	$t2, last
+	bgtz	$t2, print
+	jal	last		#jump back to last
+	
+last:	
+	li	$v0, 4		#print string
+	la	$a0, prompt	#ask for integer again
+	syscall
+	li	$v0, 5		#read integer
+	syscall
+	move	$t2, $v0	#move 3rd input to $t2
+	syscall
+	blt	$t2, $t1, swap2	
+	bgt	$t2, $t1, print
+	
+swap2:	
+	xor	$t1, $t1, $t2	#swap values if t1 < t0
+	xor	$t2, $t1, $t2
+	xor	$t1, $t1, $t2
+	jal	less2		#jump back to last
+	
+less2:
+	blt	$t1, $t0, swap	#if t1 < t0 branch to swap
+	bgt	$t1, $t0, print
+	
+print:
+	li	$v0, 4		#print integer
+	la	$a0, min	#load prompt
+	syscall
+	li	$v0, 1
+	la	$a0, ($t0)
+	syscall
+	li	$v0, 4
+	la	$a0, max
+	syscall
+	li	$v0, 1
+	la	$a0, ($t2)
+	syscall			#print prompt to I/O	
+
+
+						# END OF PROGRAM
