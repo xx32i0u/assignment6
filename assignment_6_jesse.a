@@ -1,0 +1,67 @@
+#####################################################################
+# Assignment #:6			Programmer: Jesse Gibbons
+# Due Date: April 28, 2017	Course: CSC 225 040
+# Last Modified: April 25, 2017
+#####################################################################
+# Functional Description: trnsfr
+#	Page 55 – Exercise: 5.2
+#	Write a MIPS assembly language program to transfer a block of 100 words starting at memory location SRC to another area of memory beginning at memory location DEST.
+#
+#
+#
+#####################################################################
+#	 Pseudocode:
+#
+#	s0 = 99 * sizeof(WORD);
+#	s1 = &SRC;
+#	s2 = &DEST;
+#	do{
+#		t0 = s0 + s1
+#		t1 = s0 + s2
+#		t2 = *(t1 + 0)
+#		*(t2 + 0) = t2
+#		s0 = s0 - 1
+#	}while(s0 >= 0);
+#	return;
+# 
+######################################################################
+# Register Usage:
+#
+# v0	Holds code for syscall
+# s0	Keeps track of the number of loops remaining.
+# s1	Keeps track of the address of SRC.
+# s2    keeps track of the address of DEST.
+# t0	Contains the address to load from
+# t1	Contains the address to store to
+# t2	Contains the value to move from t0 to t1
+# 
+######################################################################
+	.data						# Data declaration section
+
+SRC:
+.word 0xdeadbeef:100			# Reserve 100 words, each with value 0xdeadbeef. The initial value doesn't matter as long as it is different than the initial value in DEST.
+DEST:
+.word 0:100						# Reserve 100 words, each with value 0
+	.text			    		# Executable code follows
+	
+main:
+	jal		trnsfr				#   trnsfr()
+	li 		$v0,	10			#	v0 = syscall code for exit
+	syscall						#	syscall exit
+trnsfr:
+	li		$s0,	99			#load a counter into s0.
+    sll     $s0,    $s0,    2   #size of word is 4 bytes, so left shift 2
+	la		$s1,	SRC			#load address of SRC  into register s1
+	la		$s2,	DEST		#load address of DEST into register s2
+loop:
+	add		$t0,	$s0,	$s1	# t0 = s0 + s1;
+	add		$t1,	$s0,	$s2	# t1 = s0 + s2;
+	lw 		$t2,	0($t0) 		# t2 = *(t0 + t1);
+	sw 		$t2,	0($t1)  	# *(t1 + 0) = t2;
+	addi	$s0,	-4			# s0--;
+	bgez	$s0,	loop		# if s0 >= 0 goto loop;
+	jr		$ra					# return function;
+								# END OF PROGRAM
+						
+	
+	
