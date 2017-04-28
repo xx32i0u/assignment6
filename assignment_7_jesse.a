@@ -1,0 +1,51 @@
+#####################################################################
+# Assignment #: 7			Programmer: Jesse Gibbons
+# Due Date: April 28, 2017	Course: CSC 225 040
+# Last Modified: April 25, 2017
+#####################################################################
+# Functional Description:
+# 
+# Write a function that takes 3 int arguments and returns the largest of the 3.
+# 
+#####################################################################
+#	 Pseudocode:
+#	int largest(a0, a1, a2) {
+#	v0 = a0;
+#	if a1 > t0
+#		v0 = a1;
+#	if a2 > t0
+#		v0 = a2;
+#	return v0;
+#	
+######################################################################
+# Register Usage:
+#	a0 the first parameter.
+#	a1 the second parameter.
+#	a2 the third parameter.
+#	v0 the return register.
+# 
+######################################################################
+	.data				# Data declaration section
+
+	.text			    # Executable code follows
+	
+						# END OF PROGRAM
+.text
+main:
+	jal		largest					#largest(a0,a1,a2);
+	li		$v0,	10				#prepare to exit
+	syscall							#exit
+	
+largest:
+	move	$v0,	$a0				# v0 = a0
+	ble	$a1,	$v0,	check2	# if a2 <= v0 goto check2
+	move	$v0,	$a1				# v0 = a1
+check2:
+	ble	$a2,	$v0,	return	# if a2 <= v0 goto return
+	move	$v0,	$a2				# v0 = a2
+return:
+	jr		$ra
+	
+	
+	
+	
