@@ -1,0 +1,61 @@
+#####################################################################
+# Assignment #: 7 - 2	Programmer: Bucky Bodenheimer
+# Due Date: 4/28/17    Course: CSC 225-040
+# Last Modified: 4/26/17
+#####################################################################
+# Functional Description:
+# Write an Assembler program to perform the task of temperature 
+# conversion from Celsius to Fahrenheit. Note that given C as the 
+# degree of temperature in Celsius, the corresponding degree F in 
+# Fahrenheit equals 1.8*C + 32.0
+#
+#####################################################################
+#	 Pseudocode:
+#	prompt user for temp in Celsius
+#	store input to $a0
+#	mult $a0, 1.8
+#	add $a0, $a0, 32
+#	print temp in F to user
+#	
+#	
+#	
+#	
+#	
+#	
+#	
+# 
+######################################################################
+# Register Usage:
+# 
+# 
+# 
+######################################################################
+	.data				# Data declaration section
+temp:	.float 1.8
+ad:	.float 32.0
+input:	.asciiz	"\nEnter degrees in Celsius: "
+output:	.asciiz	"\nIt is "
+	.text			    # Executable code follows
+main:
+	li	$v0, 4		# call to print string
+	la	$a0, input	#load input string
+	syscall			#print to console
+	li	$v0, 5		#read int
+	move	$a0, $v0	#store user input to a0
+	syscall
+
+	l.s	$f1, ($a0)	#f1= user input
+	syscall
+	l.s	$f2, ad		#f2=32.0
+	syscall
+	l.s	$f3, temp	#load f3 with 1.8
+	syscall
+	
+	mul.s	$f0, $f1, $f3	# f1*f3=f0
+	syscall
+	add.s	$f4, $f0, $f2	#f0+f2=f4
+	syscall
+	mov.s	$f12, $f4	#move result to f12 to print
+	li	$v0, 2		#calls for print float
+	syscall
+							# END OF PROGRAM
