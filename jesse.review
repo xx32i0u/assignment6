@@ -1,3 +1,27 @@
 Purpose: This file's purpose is to contain Jesse's comments on different pieces of code.
 Bucky's code:
-QTSpim complains that the word move cannot be used as a label because it is an opcode. I do not know how tolerant MARS is, but I recommend changing the label "move" to something other than "move". It is best to keep these names logical, but the ruberik has a limit on the size of a label.
+Assignment6
+Some of the syscalls can call a garbage system call. The following lines can be completely removed:
+
+71
+51
+43
+
+The jal instruction changes register $ra, so it should be reserved for entering functions. Please use the b or j command instead, it doesn't matter which.
+Make sure to exit at the end of the code.
+
+This assignment has a blank heading.
+
+Assignment7
+
+The segment
+ 	li	$v0, 5		#read int
+	move	$a0, $v0	#store user input to a0
+	syscall
+
+	l.s	$f1, ($a0)	#f1= user input
+	syscall
+
+causes an error because l.s $f1 ($a0) tries to load a float from the address input by the user. Try syscall with $v0=6 (read float to $f0) or $v0=7 (read double to $f0) instead. You probably don't need double precision, so I recommend $v0=6
+
+
