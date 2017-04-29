@@ -40,7 +40,7 @@ main:
 	li	$v0, 4		# call to print string
 	la	$a0, input	#load input string
 	syscall			#print to console
-	li	$v0, 5		#read int
+	li	$v0, 6		#read float
 	move	$a0, $v0	#store user input to a0
 	syscall
 
