@@ -1,0 +1,18 @@
+.globl main 
+K: .space 4 
+Y: .space 1
+z: .space 50
+.text
+main: la t3,K
+li $t0,56
+sw $t0, 4($t3) #Y=56
+li $t1, 20
+sw $t1, 0($t3) #K=20
+sra $t1, $t1, 2 #K/4
+addi $t1, $t1, 210 #K/4 + 210
+sll $t1, $t1, 4 # _ x 16
+sub $t2, $t0, $t1 #t2 = Y - 16 * (K / 4 +210)
+lw $t1, 0($t3) #t1=K
+sll $t1, $t1, 2 #scale K
+addu $t1, $t1, 4T3 #T1= & z[K] - 8
+sw $t2, 8($t1) #Z[K]=Y-16*(k/4+210)
