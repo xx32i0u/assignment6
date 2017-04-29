@@ -7,14 +7,10 @@ Make sure to exit at the end of the function with jr $ra
 
 Assignment7
 
-The segment
- 	li	$v0, 5		#read int
-	move	$a0, $v0	#store user input to a0
-	syscall
+The segment at line 47
 
 	l.s	$f1, ($a0)	#f1= user input
-	syscall
 
-causes an error because l.s $f1 ($a0) tries to load a float from the address input by the user. Try syscall with $v0=6 (read float to $f0) or $v0=7 (read double to $f0) instead. You probably don't need double precision, so I recommend $v0=6
 
+causes an error because l.s $f1 ($a0) tries to load a float from the address input by the user. Because you got the float from the user into $f0, you don't need this line. I also don't think you need the syscall after that. Based on the code on page 100, you don't need to call syscall with every floating-point operation.
 
