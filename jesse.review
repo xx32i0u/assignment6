@@ -1,16 +1,9 @@
 Purpose: This file's purpose is to contain Jesse's comments on different pieces of code.
 Bucky's code:
 Assignment6
-Some of the syscalls can call a garbage system call. The following lines can be completely removed:
+This does not quite fit the specifications. The program is supposed to be a function that takes arguments in $a0, $a1, and $a2 and sorts them (see page 56 in the book). I like how it requires user input, and it correctly finds the maximum and minimum values, but it does not demonstrate a function call that takes arguments. I recommend testing your function in main with jal.
+Make sure to exit at the end of the function with jr $ra
 
-71
-51
-43
-
-The jal instruction changes register $ra, so it should be reserved for entering functions. Please use the b or j command instead, it doesn't matter which.
-Make sure to exit at the end of the code.
-
-This assignment has a blank heading.
 
 Assignment7
 
